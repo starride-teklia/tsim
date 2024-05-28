@@ -46,6 +46,7 @@ class RealDataSet:
     def __init__(
         self,
         dataset_name: str,
+        path_data: str = "../data/",
         seed=None,
     ):
         r"""
@@ -54,7 +55,7 @@ class RealDataSet:
             seed (int): Seed for reproducibility.
         """
         self.dataset_name = dataset_name
-        self.path_data = "../data"
+        self.path_data = path_data
         self._read_data()
         self.x_train = None
         self.x_test = None

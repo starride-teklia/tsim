@@ -236,12 +236,13 @@ class DiverseEnsembleMLP:
 
         return predicted_label
 
-    def predict_proba(self, x: np.array):
+    def predict_proba(self, x: np.array, temperature: float = 1.0):
         """Predict with the supervised prediction head the probability
         distribution on the classes for an input x.
 
         Args:
             x (np.array): Input data. Shape = (n_samples, dimension).
+            temperature (float): Temperature scalar used to scale the logitis.
 
         Returns:
             predicted_proba (np.array): Predicted probability distribution on the classes.
@@ -251,7 +252,7 @@ class DiverseEnsembleMLP:
         with torch.no_grad():
             output_pred_head, _ = self.network(x)
             out = output_pred_head.cpu().numpy()
-        predicted_proba = softmax(out, axis=-1)
+        predicted_proba = softmax(out / temperature, axis=-1)
 
         return predicted_proba
 
